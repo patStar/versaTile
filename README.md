@@ -1,4 +1,4 @@
 versaTile
 =========
 
-A Simple JavaScript Tile Engine
+A Simple Isometric JavaScript Tile Engine
