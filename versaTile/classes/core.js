@@ -29,6 +29,12 @@ function readJSON(filename) {
 	return $.ajax({url:filename,async:false,dataType:'json'});
 }
 
+function readResource (filename) {
+	var realFileName = 'resources/'+filename.replace(/[.]/g,'/');
+	return eval($.ajax({url:realFileName,async:false,dataType:'json'}).responseText);
+}
+
+
 function log(message) {console.log(arguments);}
 function trace(message) {console.log(arguments);}
 

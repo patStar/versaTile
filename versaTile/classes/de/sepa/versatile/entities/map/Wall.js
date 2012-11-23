@@ -1,4 +1,4 @@
-include('C');
+include('de.sepa.versatile.core.Constants');
 
 function Wall(width, height, x, y)
 {

@@ -1,8 +1,8 @@
-include('Person');
-include('Inventory');
-include('Map');
-include('StrengthStat');
-include('Constants');
+include('de.sepa.versatile.core.logic.Person');
+include('de.sepa.versatile.core.logic.Inventory');
+include('de.sepa.versatile.core.engine.Map');
+include('de.sepa.versatile.core.logic.stats.StrengthStat');
+include('de.sepa.versatile.core.Constants');
 
 function Soldier(name, gender)
 {

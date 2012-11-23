@@ -1,4 +1,4 @@
-include('Ammo');
+include('de.sepa.versatile.entities.items.Ammo');
 
 function StandardGunAmmo(rounds){
 	this.numberOfRounds = rounds ? rounds : 0;

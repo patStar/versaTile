@@ -1,4 +1,4 @@
-include('C');
+include('de.sepa.versatile.core.Constants');
 
 function Tile(width, height, x, y)
 {

@@ -1,4 +1,4 @@
-include('C');
+include('de.sepa.versatile.core.Constants');
 
 function WallStyle(northImage, northImageSelect, eastImage,eastImageSelect, westImage, westImageSelect, southImage, southImageSelect)
 {

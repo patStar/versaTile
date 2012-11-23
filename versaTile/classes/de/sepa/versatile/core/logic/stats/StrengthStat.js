@@ -1,4 +1,4 @@
-include('Stat');
+include('de.sepa.versatile.core.logic.Stat');
 
 function StrengthStat(){}
 StrengthStat.prototype = new Stat('strength');
@@ -16,4 +16,3 @@ IntelligenceStat.ID = 'IntelligenceStat';
 function WisdomStat(){}
 WisdomStat.prototype = new Stat('wisdom');
 WisdomStat.ID = 'WisdomStat';
-

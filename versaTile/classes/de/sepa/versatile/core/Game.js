@@ -1,19 +1,31 @@
-include('C');
-include('Shader');
-include('Tile');
-include('Wall');
-include('SoldierFactory');
-include('MapField');
-include('Map3D');
-include('ObjectMap');
-include('BottomMenu');
-include('Item');
-include('OtherAmmo');
-include('Weapon');
-include('AttackSign');
-include('Alien');
-include('WallManager');
+/* package: de.sepa.versatile.core */
 
+include('de.sepa.versatile.core.Constants');
+
+include('de.sepa.versatile.core.engine.Shader');
+include('de.sepa.versatile.core.engine.MapField');
+include('de.sepa.versatile.core.engine.Map3D');
+include('de.sepa.versatile.core.engine.ObjectMap');
+
+include('de.sepa.versatile.core.logic.figures.Alien');
+include('de.sepa.versatile.core.logic.SoldierFactory');
+include('de.sepa.versatile.core.logic.Item');
+
+include('de.sepa.versatile.gui.BottomMenu');
+include('de.sepa.versatile.gui.AttackSign');
+
+include('de.sepa.versatile.entities.map.WallManager');
+include('de.sepa.versatile.entities.map.Tile');
+include('de.sepa.versatile.entities.map.Wall');
+
+include('de.sepa.versatile.entities.items.OtherAmmo');
+include('de.sepa.versatile.entities.items.Weapon');
+
+/**
+ * The game class.
+ * 
+ * @author Patrick Seeber
+ */
 function Game()
 {
 	this.objectMap = new ObjectMap();
@@ -24,6 +36,7 @@ function Game()
 	this.soldierFactory.maximalStats = 120;
 	this.soldierFactory.maximalStatBoni = 1;
 }
+
 Game.prototype =
 {
 	wallManager : new WallManager(),

@@ -1,4 +1,4 @@
-include('Item');
+include('de.sepa.versatile.core.logic.Item');
 
 function Weapon(){};
 Weapon.prototype = new Item();

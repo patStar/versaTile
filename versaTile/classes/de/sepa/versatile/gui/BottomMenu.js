@@ -1,5 +1,5 @@
-include('Button');
-include('NumericManager');
+include('de.sepa.versatile.gui.Button');
+include('de.sepa.versatile.core.engine.NumericManager');
 
 function BottomMenu(game,width,height)
 {

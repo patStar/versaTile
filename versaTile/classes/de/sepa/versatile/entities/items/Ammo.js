@@ -1,4 +1,4 @@
-include('Item');
+include('de.sepa.versatile.core.logic.Item');
 
 function Ammo(name){if(name) this.name = name;}
 Ammo.prototype = new Item();

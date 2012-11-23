@@ -1,4 +1,4 @@
-include('Person');
+include('de.sepa.versatile.core.logic.Person');
 
 function Alien(src,avatar)
 {

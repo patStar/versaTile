@@ -1,5 +1,5 @@
-include('C');
-include('WallStyle');
+include('de.sepa.versatile.core.Constants');
+include('de.sepa.versatile.entities.map.WallStyle');
 
 function WallManager()
 {	
