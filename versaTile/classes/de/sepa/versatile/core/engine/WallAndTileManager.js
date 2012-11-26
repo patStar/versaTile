@@ -3,6 +3,8 @@
 /**
  * WallAndTileManager class to receive wall and tile objects from.
  * 
+ * This is only a stub that needs to be overwritten and extended by real applications.
+ * 
  * @author Patrick Seeber 
  */
 function WallAndTileManager(){}
@@ -20,14 +22,6 @@ WallAndTileManager.prototype =
 	 * @returns Always null since this is only a stub which needs to be overwritten.
 	 */
 	getWall : function( wallType ) {
-		return null;
-	},
-	
-	getWEDefaultWall : function() {
-		return null;
-	},
-	
-	getNSDefaultWall : function() {
 		return null;
 	},
 

@@ -4,19 +4,17 @@ include('de.sepa.versatile.core.engine.WallAndTileManager');
 include('de.sepa.versatile.core.engine.Wall');
 include('de.sepa.versatile.core.engine.Tile');
 
+include('de.sepa.versatile.core.util.ImageReader');
+
 /**
  * The WallAndTileManager for the demo application. 
  * 
  * @author Patrick Seeber 
  */
-function DemoWallAndTileManager( gfxSourceFolder ) {
+function DemoWallAndTileManager( imageReader ) {
 	
-	this.gfxSourceFolder = gfxSourceFolder;
-	
-	this.defaultWall = new Object();
-	this.defaultWall.ns = new Wall( 32 , 48 , this.gfx('wallNS_32x48.png') , this.gfx('wireWallNS_32x48.png') );
-	this.defaultWall.we = new Wall( 32 , 48 , this.gfx('wallWE_32x48.png') , this.gfx('wireWallWE_32x48.png') );
-	
+	this.imageReader = imageReader;
+
 	this.defaultTile = new Tile( 64 , 32 , 'khaki' , 'black' );
 };
 
@@ -28,7 +26,7 @@ override(DemoWallAndTileManager,
 	defaultTile : null,
 	
 	/** The absolute path to the gfx folder. **/
-	gfxSourceFolder : null,
+	imageReader: null,
 	
 	/**
 	 * Method to compute the complete path to a graphic source.
@@ -38,7 +36,7 @@ override(DemoWallAndTileManager,
 	 * @returns The absolute source path.
 	 */
 	gfx : function( src ) {
-		return this.gfxSourceFolder + src;
+		return this.imageReader.readImage( src , true );		
 	},
 	
 	/**
@@ -53,28 +51,42 @@ override(DemoWallAndTileManager,
 		
 		var wall = null;
 		
-		if( 'N' == wallType || 'S' == wallType ){
-			wall = new Wall( 32 , 48 , this.gfx('wallNS_32x48.png') , this.gfx('wireWallNS_32x48.png') );
+		if( 'N' == wallType ){
+			wall = new Wall( 32 , 48 , this.gfx('wallNS_32x48.png') , this.gfx('wireWallNS_32x48.png') , 32 );
 		}
-		if( 'E' == wallType || 'W' == wallType){
+		if( 'E' == wallType ){
+			wall = new Wall( 32 , 48 , this.gfx('wallWE_32x48.png') , this.gfx('wireWallWE_32x48.png') , 32 , 16);
+		}
+		if( 'W' == wallType){
 			wall = new Wall( 32 , 48 , this.gfx('wallWE_32x48.png') , this.gfx('wireWallWE_32x48.png') );
 		}
+		if( 'S' == wallType ){
+			wall = new Wall( 32 , 48 , this.gfx('wallNS_32x48.png') , this.gfx('wireWallNS_32x48.png') , 0 , 16);
+		}
 		if( 'Du' == wallType ){
-			wall = new Wall( 32 , 48 , this.gfx('wallDoorUpper_32x48.png') , this.gfx('wireWallNS_32x48.png') );
+			wall = new Wall( 32 , 48 , this.gfx('wallDoorUpper_32x48.png') , this.gfx('wireWallNS_32x48.png') , 0 , 16);
 		}
 		if( 'Dl' == wallType ){
-			wall = new Wall( 32 , 48 , this.gfx('wallDoorUnder_32x48.png') , this.gfx('wireWallNS_32x48.png') );
+			wall = new Wall( 32 , 48 , this.gfx('wallDoorUnder_32x48.png') , this.gfx('wireWallNS_32x48.png') , 0 , 16);
 		}
 		
 		return wall;
 	},
 	
-	getWEDefaultWall : function() {
-		return this.defaultWall.we;
+	getNDefaultWall : function() {
+		return this.getWall('N');
 	},
 	
-	getNSDefaultWall : function() {
-		return this.defaultWall.ns;
+	getEDefaultWall : function() {
+		return this.getWall('E');
+	},
+
+	getWDefaultWall : function() {
+		return this.getWall('W');
+	},
+	
+	getSDefaultWall : function() {
+		return this.getWall('S');
 	},
 	
 	getDefaultTile : function() {
@@ -94,7 +106,7 @@ override(DemoWallAndTileManager,
 		var tile = null;
 		
 		if( 'B' == tileType ){
-			tile = new Tile( 64 , 32 , 'khaki' , 'black' );
+			tile = new Tile( 64 , 32 , 'khaki' , 'black' , 0 , 32 );
 		}
 		
 		return tile;

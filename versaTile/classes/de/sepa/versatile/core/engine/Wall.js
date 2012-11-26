@@ -1,33 +1,46 @@
-/* package :  de.sepa.versatile.core.engine */
+/* package : de.sepa.versatile.core.engine */
 
-include('de.sepa.versatile.core.Constants');
+include("de.sepa.versatile.core.engine.MapFieldObject");
 
 /**
  * A simple implementation of a wall object.
- * 
+ *
+ * @param width {Numeric}
+ * 		The width of this wall.
+ * @param height {Numeric}
+ * 		The height of this wall.
+ * @param image {Image}
+ * 		The image of this wall to draw. 
+ * @param wiredImage {String}
+ * 		A wire frame image of this wall.  		
+ * @param shiftX {Numeric} 
+ * 		The x shift of this wall necessary for drawing.
+ * @param shiftY {Numeric}
+ * 		The y shift of this wall necessary for drawing. 
+ *  
  * @author Patrick Seeber
  */
-function Wall( width, height , filledImage , wiredImage )
+function Wall ( width , height , image , wiredImage , shiftX , shiftY )
 {
 	this.width = width;
 	this.height = height;
 	
-	this.filledImage = new Image();
-	this.filledImage.src = filledImage;	
+	this.image = image;	
+	this.wiredImage = wiredImage;
 	
-	this.wiredImage = new Image();
-	this.wiredImage.src = wiredImage;	
+	this.shiftX = shiftX ? shiftX : 0;
+	this.shiftY = shiftY ? shiftY : 0;
 }	
-
-Wall.prototype = {
-	
+// Overriding the MapFieldObject since at least, this is what 
+// a wall is and to benefit from shift parameter.
+Wall.prototype = new MapFieldObject('Wall');
+override(Wall,
+{	
 	/** The height of this wall. **/
 	height : null,
 	/** The width of this wall. **/
 	width : null,
 	
-	/** The image object of the filled wall. **/
-	filledImage : null,
 	/** The image object of the wired wall. **/
 	wiredImage : null,
 	
@@ -48,10 +61,10 @@ Wall.prototype = {
 	draw : function( context , x , y , filled , frame )
 	{
 		if( filled ) {
-			context.drawImage( this.filledImage , x , y );
+			context.drawImage( this.image , x + this.shiftX , y  + this.shiftY );
 		}
 		if( frame ) {
-			context.drawImage( this.wiredImage , x , y );
+			context.drawImage( this.wiredImage , x + this.shiftX , y  + this.shiftY );
 		}
 	}	
-};
+});

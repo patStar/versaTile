@@ -12,6 +12,7 @@ function ResourceResolver( resourceFolder )
 {
 	this.resourceFolder = resourceFolder;
 }
+
 ResourceResolver.prototype =
 {
 	/** The path to the folder to look for resources. **/

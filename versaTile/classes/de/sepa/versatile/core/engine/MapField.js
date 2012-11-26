@@ -41,6 +41,7 @@ MapField.prototype = new Point3D(); // extends Point3D
 
 override(MapField,
 {
+	/** Marker, whether or not this field is selected in some way. **/
 	selected : null,
 	/** The ground tile of this field. **/
 	ground : null,

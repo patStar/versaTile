@@ -8,10 +8,7 @@ include('de.sepa.versatile.core.engine.Map');
  * @author Patrick Seeber
  */
 
-function GameObjectFactory() {
-	
-	this.catalogue = new Map();
-};
+function GameObjectFactory() {};
 
 GameObjectFactory.prototype = {
 		

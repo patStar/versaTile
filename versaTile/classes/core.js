@@ -15,14 +15,25 @@ var _INCLUDES = new Object();
 // Function to include other JS-Scripts into the application.
 function include(scriptName)
 {
-	// Check if this script isn't already included.
-	if(!_INCLUDES[scriptName]){
-		// Replacingdots to backslashes, so de.sepa.game.main.MyClass is 
+	try{
+		// Replacing dots to backslashes, so de.sepa.game.main.MyClass is 
 		// converted into the folder url 'classes/de/sepa/game/main/MyClass.js'.
-		realScriptName = 'classes/'+scriptName.replace(/[.]/g,'/')+'.js';
-		// The jQuery AJAX request.
-		var request = {url:realScriptName, async:false, dataType:'script'};
-		$.ajax(request).fail(function(a,b,exception){console.error(exception);}).success(_INCLUDES[scriptName] = true);
+		var realScriptName = 'classes/'+scriptName.trim().replace(/[.]/g,'/')+'.js';
+		
+		// Check if this script isn't already included.
+		if(!_INCLUDES[realScriptName]){			
+			// The jQuery AJAX request.
+			var request = {url:realScriptName, async:false, dataType:'script'};
+			$.ajax(request)
+				.fail( function ( a , b , exception ) {
+					console.error('Error while trying to load script "'+scriptName.trim()+'" resolved to "'+realScriptName+'".');
+					console.error(exception);
+				})
+				.success(_INCLUDES[realScriptName] = true);
+		}
+	}catch(e){
+		console.error('Error while trying to load script "'+scriptName.trim()+'".');
+		throw e;
 	}
 }
 

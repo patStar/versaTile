@@ -1,23 +1,45 @@
-/* package :  de.sepa.versatile.core.engine */
+/* package : de.sepa.versatile.core.engine */
 
-include('de.sepa.versatile.core.Constants');
+include("de.sepa.versatile.core.engine.MapFieldObject");
 
 /**
  * A simple implementation of a tile object.
  * 
+ * @param width {Numeric}
+ * 		The width of this tile.
+ * @param height {Numeric}
+ * 		The height of this tile.
+ * @param fillColor {String}
+ * 		The color to fill this tile with. 
+ * @param strokeColor {String} 
+ * 		The color for the border of this tile.
+ * @param shiftX {Numeric} 
+ * 		The x shift of this tile necessary for drawing.
+ * @param shiftY {Numeric}
+ * 		The y shift of this tile necessary for drawing. 
+ * 
  * @author Patrick Seeber
  */
-
-function Tile( width , height , fillColor, strokeColor )
+function Tile( width , height , fillColor, strokeColor , shiftX , shiftY )
 {
 	this.fillColor 		= fillColor;
 	this.strokeColor 	= strokeColor;
 	this.width 			= width;
 	this.height 		= height;
+	
+	this.shiftX 		= shiftX ? shiftX : 0;
+	this.shiftY 		= shiftY ? shiftY : 0;
 }
-
-Tile.prototype = 
+// Overriding the MapFieldObject since at least, this is what 
+// a tile is and to benefit from shift parameter. 
+Tile.prototype = new MapFieldObject('Tile');
+override(Tile,
 {	
+	/** The height of this tile. **/
+	height : null,
+	/** The width of this tile. **/
+	width : null,
+	
 	/**
 	 * Draws this tile with the given color at the given position on the given context.
 	 * 
@@ -34,24 +56,30 @@ Tile.prototype =
 	 * @param strokeColor 
 	 * 		The color to draw the border with.
 	 */
-	draw : function(context,x,y,fillColor,strokeColor){
+	draw : function ( context , x , y , fill , stroke ) {
 				
-		context.fillStyle = fillColor ? fillColor : this.fillColor;	
-		context.beginPath();
+		var xPos = x + this.shiftX;
+		var yPos = y + this.shiftY;
+		
+		context.strokeStyle = this.strokeColor;
+		context.fillStyle = this.fillColor;	
+		context.beginPath();		
 		
 		// draw the parallelogram.
-		context.moveTo( x + this.width / 2 , y );
-		context.lineTo( x + this.width , y + this.height / 2 );		
-		context.lineTo( x + this.width / 2 , y + this.height );		
-		context.lineTo( x , y + this.height / 2 );	
+		context.moveTo( xPos + this.width / 2 , yPos );
+		context.lineTo( xPos + this.width , yPos + this.height / 2 );		
+		context.lineTo( xPos + this.width / 2 , yPos + this.height );		
+		context.lineTo( xPos , yPos + this.height / 2 );	
 		
-		context.fill();
+		if ( fill !== false ) {
+			context.fill();
+		};
+
 		context.closePath();		
 		
 		// draw the border of the tile if a stroke color is provided
-		if(strokeColor){
-			context.strokeStyle = strokeColor;
+		if ( stroke ) {
 			context.stroke();
 		};
 	}
-};
+});
