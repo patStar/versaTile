@@ -1,30 +1,34 @@
+/* package: de,sepa.verstaile.core.engine */
+
+/**
+ * Painter class to draw the map.
+ * 
+ * @author Patrick Seeber
+ */
 function Painter(){}
 Painter.prototype = 
 {
+	/** The canvas context to draw on. */
 	context : null,
 	
 	draw : function(){},
 	
 	drawTile : function(context,x,y,color,stroke){
-		var xPos = x ? x : this.x;
-		var yPos = y ? y : this.y;
 
-		if(this.anchor == C.Anchor.UPPER_LEFT){
-			context.fillStyle = color ? color : this.fillColor;	
-			context.beginPath();
-			context.moveTo(xPos+this.width/2,yPos);
-			context.lineTo(xPos+this.width,yPos+this.height/2);		
-			context.lineTo(xPos+this.width/2,yPos+this.height);		
-			context.lineTo(xPos,yPos+this.height/2);		
-			context.fill();
-			context.closePath();
-		}
+		context.fillStyle = color ? color : this.fillColor;	
+		context.beginPath();
+		context.moveTo(x+this.width/2,yPos);
+		context.lineTo(x+this.width,y+this.height/2);		
+		context.lineTo(x+this.width/2,y+this.height);		
+		context.lineTo(x,yPos+this.height/2);		
+		context.fill();
+		context.closePath();
 	},
 	
 	drawField : function(field)
 	{
 		var c = this.newContext(64,64);
-		if(field.wall.s){
+		if ( field.wall.s ){
 			this.drawWallS(c); // draw the southern wall
 		}
 		if(field.wall.e){

@@ -14,8 +14,7 @@ function Map() {
 Map.prototype = 
 {
 	/** The counter for the number of elements in this map. **/
-    counter : 0,
-    
+    counter : 0,    
     /** The main map object. **/
 	map : null,
 	
@@ -66,6 +65,18 @@ Map.prototype =
 		this.map[key] = null; 
 		this.counter--; 
 		return value;
-	}
+	},
 	
+	/**
+	 * Method to return an array of all stored keys.
+	 * 
+	 * @returns {Array} Zhe stored keys.
+	 */
+	keySet : function() {
+		var keySet = new Array();
+		for(key in this.map){
+			keySet.push(key);
+		}
+		return keySet;
+	}
 };

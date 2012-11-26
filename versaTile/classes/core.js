@@ -1,3 +1,5 @@
+var System = new Object();
+
 // An override function to inherit methods and members from objects.
 override = function(x,o){
 	if(typeof(o) == 'object'){
@@ -29,16 +31,17 @@ function readJSON(filename) {
 	return $.ajax({url:filename,async:false,dataType:'json'});
 }
 
-function readResource (filename) {
-	var realFileName = 'resources/'+filename.replace(/[.]/g,'/');
-	return eval($.ajax({url:realFileName,async:false,dataType:'json'}).responseText);
-}
-
-
 function log(message) {console.log(arguments);}
 function trace(message) {console.log(arguments);}
 
 // Function to read the content from a file.
 function readFromFile(filename) {
 	return $.ajax({url:filename,async:false}).responseText;
+}
+
+include('de.sepa.versatile.core.util.ResourceResolver');
+
+System.resourceResolver = new ResourceResolver('resources');
+function readResource (filename) {
+	return System.resourceResolver.readResource(filename);
 }

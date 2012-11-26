@@ -15,7 +15,7 @@ include('de.sepa.versatile.gui.BottomMenu');
 include('de.sepa.versatile.gui.AttackSign');
 
 include('de.sepa.versatile.entities.map.WallManager');
-include('de.sepa.versatile.entities.map.Tile');
+include('de.sepa.versatile.core.engine.Tile');
 include('de.sepa.versatile.entities.map.Wall');
 
 include('de.sepa.versatile.entities.items.OtherAmmo');

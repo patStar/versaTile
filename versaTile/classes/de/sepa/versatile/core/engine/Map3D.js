@@ -24,6 +24,14 @@ function Map3D()
 }
 Map3D.prototype = 
 {
+	maxX : null,
+	maxY : null,
+	maxZ : null,
+	minX : null,
+	minY : null,
+	minZ: null,
+		
+	/** The map instance. **/
 	map : null,
 	
 	/**
