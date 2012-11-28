@@ -24,6 +24,20 @@ function Map3D()
 }
 Map3D.prototype = 
 {
+	/** The maximum x coordinate in this map. **/
+	maxX : null,
+	/** The maximum y coordinate in this map. **/
+	maxY : null,
+	/** The maximum z coordinate in this map. **/
+	maxZ : null,
+	/** The minimum x coordinate in this map. **/
+	minX : null,
+	/** The minimum y coordinate in this map. **/
+	minY : null,
+	/** The minimum z coordinate in this map. **/
+	minZ: null,
+		
+	/** The map instance. **/
 	map : null,
 	
 	/**

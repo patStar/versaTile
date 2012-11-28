@@ -7,7 +7,16 @@
  * 
  * @author Patrick Seeber
  */
-function Point3D(){}
+function Point3D(x,y,z){}
+
+Point3D.getPoint = function ( x , y , z ) {
+	var point = new Point3D();
+	point.x = x;
+	point.y = y;
+	point.z = z;
+	return point;
+};
+
 Point3D.prototype =
 {
     /** The x,y and z coordinates. **/
@@ -16,5 +25,12 @@ Point3D.prototype =
 	z:null,
 	
 	/** the data associated with the coordinates. **/
-	data:null
+	data:null,
+	
+	/**
+	 * @return A string representation of this object.
+	 */
+	toString : function() {
+		return "["+this.x+","+this.y+","+this.z+"]";
+	}
 };
