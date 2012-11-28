@@ -11,14 +11,14 @@ function GameMenu( image ) {
 	
 	this.image = image;
 	
-	this.gameMenuLogger = new TextComponent();	
+	this.logger = new TextComponent();	
 	this.lastSelectedLabel = new TextComponent("Last clicked: ");
 	this.lastSelectedLabel.font = 'bold 12px Courier';	
 	this.lastSelectedText = new TextComponent();
 	
 	this.addChild(this.lastSelectedLabel , 15 , 25 );
 	this.addChild(this.lastSelectedText , 120 , 25 );
-	this.addChild(this.gameMenuLogger , 15 , 45 );
+	this.addChild(this.logger , 15 , 45 );
 }
 
 GameMenu.prototype = new ImageComponent();
@@ -27,6 +27,6 @@ override(GameMenu,
 {
 	lastSelectedLabel : null,
 	lastSelectedText : null,
-	gameMenuLogger : null
+	logger : null
 	
 });

@@ -71,30 +71,52 @@ Game.prototype = {
 		this.mapInteractionManager.start();
 		this.mapInteractionManager.sendNotify();
 		this.gameScreen.toggle();
-	},
+	},		
 
+	lastClickedField : null,
+	
 	notify : function ( message , topic ) {
 		
 		if(message.originalTopic === 'click' && message.selectedField) {
-			this.gameScreen.children[0].gameMenuLogger.text = "Click on field ";
-			var text = message.selectedField;
-			if(message.selectedField.data.length > 0){
-				text += " contains "+ this.worldObjectFactory.produce(message.selectedField.data).name;
-			}
-			this.gameScreen.children[0].gameMenuLogger.text = "Click on field " + text;
-			this.gameScreen.children[0].lastSelectedText.text = text; 
+			this.handleClick( message.selectedField );
 		}
 		if(message.originalTopic === 'mousewheel'){
-			var text = message.data > 0 ? "raise" : "lower";
-			this.gameScreen.children[0].gameMenuLogger.text = "Mousewheel used to "+text+" the height level.";
+			this.handleWheel( message );
 		}
 		if(message.originalTopic === 'mousemove' && message.selectedField){			
-			this.gameScreen.children[0].gameMenuLogger.text = "Field " + message.selectedField;
-			if(message.selectedField.data.length > 0){
-				this.gameScreen.children[0].gameMenuLogger.text += " contains "+ this.worldObjectFactory.produce(message.selectedField.data).name;
-			}
+			this.handleMove( message.selectedField )
 		}
 		this.mapPainter.drawMap(this.gameScreen.context, this.map, this.mapOrigin.x, this.mapOrigin.y);
 		this.gameScreen.draw();
+	},
+	
+	handleWheel : function ( message ) {
+		var text = message.data > 0 ? "raise" : "lower";
+		this.info("Mousewheel used to "+ text +" the height level.");
+	},
+	
+	handleMove : function ( field ) {
+		var text = field;
+		if(field.data.length > 0){
+			text += " contains "+ this.worldObjectFactory.produce(field.data).name;
+		} 
+		this.info("Field " + text);
+	},
+	
+	handleClick : function ( field ) {
+		var text = field;
+		if(field.data.length > 0){
+			text += " contains "+ this.worldObjectFactory.produce(field.data).name;
+		}
+		this.info("Click on field " + text);
+		this.getGameMenu().lastSelectedText.text = text; 
+	},
+	
+	getGameMenu : function () {
+		return this.gameScreen.children[0];
+	},
+	
+	info : function ( text ) {
+		return this.gameScreen.children[0].logger.text = text;
 	}
 };
