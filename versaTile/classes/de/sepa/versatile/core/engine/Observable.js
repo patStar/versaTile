@@ -28,14 +28,14 @@ Observable.prototype =
 	 * @param message
 	 * 		The message to send.
 	 */
-	sendNotify : function ( topic , message ) {
+	sendNotify : function ( message , topic ) {
 		
 		var msg = message ? message : 0;
 		var top = topic   ? topic   : Observable.GENERAL_TOPIC;
 		
 		if ( this.observer[ top ] ) {								
 			for ( var i in this.observer[ top ] ){
-				this.observer[ top ][ i ].notify( top , msg );
+				this.observer[ top ][ i ].notify( msg , top);
 			}
 		}
 	},
@@ -48,12 +48,15 @@ Observable.prototype =
 	 * @param listener
 	 * 		The listener to register.
 	 */
-	addObserver : function ( topic , observer ) {
-		if( ! this.observer[ topic ] ){
-			this.observer[ topic ] = new Array();
-			this.observer[ topic ].push( observer );
-		} else if ( ! Arrays.contains( this.observer[ topic ] , observer ) ) {
-			this.observer[ topic ].push( observer );
+	addObserver : function ( observer , topic) {
+		
+		var top = topic   ? topic   : Observable.GENERAL_TOPIC;
+		
+		if( ! this.observer[ top ] ){
+			this.observer[ top ] = new Array();
+			this.observer[ top ].push( observer );
+		} else if ( ! Arrays.contains( this.observer[ top ] , observer ) ) {
+			this.observer[ top ].push( observer );
 		}			
 	},
 	
@@ -68,9 +71,12 @@ Observable.prototype =
 	 * @returns {Boolean} TRUE if the observer is registered to the given topic. 
 	 * 			Otherwise, or if the topic does not exist: FALSE.
 	 */
-	containsObserver : function ( topic , observer ) {
-		if( this.observer[ topic ] ){
-			return Arrays.contains( this.observer[ topic ] , observer );
+	containsObserver : function ( observer , topic ) {
+		
+		var top = topic   ? topic   : Observable.GENERAL_TOPIC;
+		
+		if( this.observer[ top ] ){
+			return Arrays.contains( this.observer[ top ] , observer );
 		}
 		return false;
 	},
@@ -83,9 +89,12 @@ Observable.prototype =
 	 * @param observer
 	 * 		The observer to remove.
 	 */
-	removeObserver : function ( topic , observer ) {
-		if( this.containsObserver( topic , observer ) ) {
-			Arrays.remove( this.observer[ topic ] , observer );			
+	removeObserver : function ( observer , topic ) {
+		
+		var top = topic ? topic : Observable.GENERAL_TOPIC;
+		
+		if( this.containsObserver( observer , top ) ) {
+			Arrays.remove( observer , this.observer[ top ] );			
 		}
 	}
 };

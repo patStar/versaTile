@@ -15,7 +15,7 @@ function Screen( id , width , height , backgroundColor ){
 	// add the game screen to the body element of the html page.
 	$('body').append( this.canvas );
 	// get the context to draw on
-	this.context = $('#' + id )[0].getContext('2d');
+	this.context = this.canvas[0].getContext('2d');
 } 
 // Extending the Component class since this is a part of the gui. 
 Screen.prototype = new Component();

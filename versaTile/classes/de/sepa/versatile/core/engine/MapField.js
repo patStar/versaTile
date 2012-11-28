@@ -30,9 +30,6 @@ function MapField(x,y,z)
 	this.walls.s = null;
 	this.walls.w = null;
 	this.walls.e = null;
-	
-	this.walls.nsWire = null;
-	this.walls.weWire = null;
 		
 	this.ground = null;	
 	this.ceiling = null;

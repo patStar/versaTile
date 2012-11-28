@@ -37,7 +37,7 @@ override(Component,
 	 * @param y {Numeric}
 	 * 		The relative y coordinate to this element.
 	 */
-	addChild : function ( child , x, y) {
+	addChild : function ( child , x, y ) {
 		
 		child.x = x ? x : child.x;
 		child.y = y ? y : child.y;

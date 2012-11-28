@@ -2,24 +2,22 @@
 
 include('de.sepa.versatile.core.engine.Map3D');
 include('de.sepa.versatile.core.engine.WallAndTileManager');
+include('de.sepa.versatile.core.engine.WorldObjectFactory');
 
 /**
  * MapPainter class to draw a given map on a context.
  * 
- * @param wallAndTileManager {WallAndTileManager}
- * 		The WallAndTileManager instance to obtain image data for tiles and walls from.
- * 
  * @author Patrick Seeber
  * 
  */
-function MapPainter ( wallAndTileManager ) {
-	this.wallAndTileManager = wallAndTileManager;
-}
+function MapPainter () {}
 
 MapPainter.prototype =
 {				
 	/** An instance of a WallAndTileManager to obtain the image data for drawing walls and tiles. **/		
 	wallAndTileManager : null,
+	/** An instance of a WorldObjectFactory to obtain the image data for drawing world objects. **/		
+	worldObjectFactory : null,
 	
 	/**
 	 * Iterates over the map and draws the fields.
@@ -104,7 +102,9 @@ MapPainter.prototype =
 
 		// 3rd: draw objects
 		for( var i in mapField.data ) {
-			mapField.data[ i ].draw( context,  x , y );
+			if ( this.worldObjectFactory.canProduce( mapField.data[ i ] ) ) {
+				this.worldObjectFactory.produce( mapField.data[ i ] ).draw( context,  x , y );
+			}
 		}
 		
 		// 4th: draw the front walls.

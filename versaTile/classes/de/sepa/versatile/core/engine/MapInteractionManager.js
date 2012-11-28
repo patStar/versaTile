@@ -146,9 +146,9 @@ override(MapInteractionManager,
 		};
 		
 		if ( topic ) {
-			this.sendNotify( topic, message );
+			this.sendNotify( message , topic );
 		}
-		this.sendNotify( null , message );
+		this.sendNotify( message );
 	},	
 	
 

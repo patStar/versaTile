@@ -3,20 +3,20 @@
 include('de.sepa.versatile.core.engine.Map');
 
 /**
- * GameObjectFactory to produce objects like items, figures, etc.
+ * WorldObjectFactory to produce objects like items, figures, etc.
  *
  * @author Patrick Seeber
  */
 
-function GameObjectFactory() {};
+function WorldObjectFactory() {};
 
-GameObjectFactory.prototype = {
+WorldObjectFactory.prototype = {
 		
 	/**
 	 * Method to produce instances of game objects.
 	 * 
-	 * This method has to be overwritten by any class that extends the GameObjectFactory
-	 * and wants to produce game objects.
+	 * This method has to be overwritten by any class that extends the WorldObjectFactory
+	 * and wants to produce world objects.
 	 *  
 	 * @param type
 	 * 		The object type to produce.
@@ -29,8 +29,8 @@ GameObjectFactory.prototype = {
 	/**
 	 * Method to check if a certain type of game object can be produced by this factory.
 	 * 
-	 * This method has to be overwritten by any class that extends the GameObjectFactory
-	 * and wants to produce game objects.
+	 * This method has to be overwritten by any class that extends the WorldObjectFactory
+	 * and wants to produce world objects.
 	 * 
 	 * @param type
 	 * 		The object type to be verified.

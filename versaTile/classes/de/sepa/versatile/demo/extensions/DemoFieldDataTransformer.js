@@ -1,71 +1,71 @@
 /*package: de.sepa.versatile.demo */
 
-include('de.sepa.versatile.core.engine.FieldData');
-include('de.sepa.versatile.core.engine.FieldDataTransformer');
+include('de.sepa.versatile.core.engine.MapField');
+include('de.sepa.versatile.core.engine.MapFieldTransformer');
 
 /**
- * The FieldDataTransformer for the demo application. 
+ * The MapDataTransformer for the demo application. 
  * 
  * @author Patrick Seeber 
  */
 function DemoFieldDataTransformer() {}
-DemoFieldDataTransformer.prototype = new FieldDataTransformer();
+DemoFieldDataTransformer.prototype = new MapFieldTransformer();
 override(DemoFieldDataTransformer,{
 	
+	wallAndTileManager : null,
+	
+	worldObjectFactory : null,
+	
 	/**
-	 * Method to transform a string into a FieldData object.
+	 * Method to transform a string into a MapField object.
 	 * 
-	 * @param fieldDataString {String} The string to produce a FieldData object from.
+	 * @param mapDataString {String} The string to produce a MapField object from.
 	 *
-	 * @returns The created FieldData object.
+	 * @returns The created MapField object.
 	 */
-	transformToFieldData : function ( fieldDataString ) {
+	transformToMapField : function ( mapDataString , x , y , z) {
 		
-		var fieldData = new FieldData();
+		var mapField = new MapField( x , y , z );
 		
 		// the ground
-		if ( fieldDataString.indexOf('B') > -1 ){
-			fieldData.ground = 'B';
+		if ( mapDataString.indexOf('B') > -1 ){
+			mapField.ground = 'B';
 		}
 		
 		// walls
-		if ( fieldDataString.indexOf('N') > -1 ){
-			fieldData.north = 'N';
+		if ( mapDataString.indexOf('N') > -1 ){
+			mapField.walls.n = 'N';
 		}
-		if ( fieldDataString.indexOf('E') > -1 ){
-			fieldData.east = 'E';
+		if ( mapDataString.indexOf('E') > -1 ){
+			mapField.walls.e = 'E';
 		}
-		if ( fieldDataString.indexOf('W') > -1 ){
-			fieldData.west = 'W';
+		if ( mapDataString.indexOf('W') > -1 ){
+			mapField.walls.w = 'W';
 		}
-		if ( fieldDataString.indexOf('S') > -1 ){
-			fieldData.south = 'S';
+		if ( mapDataString.indexOf('S') > -1 ){
+			mapField.walls.s = 'S';
 		}
 		
 		// upper side of a door on a southern wall.
-		if ( fieldDataString.indexOf('Du') > -1 ){
-			fieldData.south = 'Du';
+		if ( mapDataString.indexOf('Du') > -1 ){
+			mapField.walls.s = 'Du';
 		}	
 		// center of a door on a southern wall.
-		if ( fieldDataString.indexOf('Dl') > -1 ){
-			fieldData.south = 'Dl';
+		if ( mapDataString.indexOf('Dl') > -1 ){
+			mapField.walls.s = 'Dl';
 		}
 		
 		// prepare game objects
 		
-		// soldiers...
-		if ( fieldDataString.indexOf('X') > -1 ){
-			fieldData.gameObjects.push('X');
+		var validObjects = new Array('X','An');
+		
+		for ( var i in validObjects ){
+			if ( this.worldObjectFactory.canProduce(validObjects[i]) && mapDataString.indexOf(validObjects[i]) > -1 ){
+				mapField.data.push(validObjects[i]);
+			}
 		}
-		// green aliens...
-		if ( fieldDataString.indexOf('An') > -1 ){
-			fieldData.gameObjects.push('An');
-		}
-		// gray aliens...
-		if ( fieldDataString.indexOf('Ay') > -1 ){
-			fieldData.gameObjects.push('Ay');
-		}
+		
 				
-		return fieldData;
+		return mapField;
 	}
 });

@@ -1,12 +1,12 @@
 /*package: de.sepa.versatile.demo */
 
-include('de.sepa.versatile.core.engine.GameObjectFactory');
+include('de.sepa.versatile.core.engine.WorldObjectFactory');
 include('de.sepa.versatile.core.engine.MapFieldObject');
 
 include('de.sepa.versatile.core.util.ImageReader');
 
 /**
- * The GameObjectFactory for the demo application. 
+ * The WorldObjectFactory for the demo application. 
  * 
  * @author Patrick Seeber 
  */
@@ -19,7 +19,7 @@ function DemoGameObjectFactory( imageReader) {
 	this.catalogue['An'] = new MapFieldObject( 'Alien' , this.imageReader.readImage('littleGreen.png',true) , +22 , +24 );
 }
 
-DemoGameObjectFactory.prototype = new GameObjectFactory();
+DemoGameObjectFactory.prototype = new WorldObjectFactory();
 override(DemoGameObjectFactory,{
 	
 	imageReader : null,

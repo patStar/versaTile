@@ -15,16 +15,26 @@ function DemoWallAndTileManager( imageReader ) {
 	
 	this.imageReader = imageReader;
 
-	this.defaultTile = new Tile( 64 , 32 , 'khaki' , 'black' );
+	this.catalogue = new Object();
+	this.catalogue.tiles = new Object();
+	this.catalogue.walls = new Object();
+
+	this.catalogue.tiles['B'] = new Tile( 64 , 32 , 'khaki' , 'black' , 0 , 32);
+	
+	this.catalogue.walls['N'] = new Wall( 32 , 48 , this.gfx('wallNS_32x48.png') , this.gfx('wireWallNS_32x48.png') , 32 , 0); 
+	this.catalogue.walls['E'] = new Wall( 32 , 48 , this.gfx('wallWE_32x48.png') , this.gfx('wireWallWE_32x48.png') , 32 , 16); 
+	this.catalogue.walls['W'] = new Wall( 32 , 48 , this.gfx('wallWE_32x48.png') , this.gfx('wireWallWE_32x48.png') ); 
+	this.catalogue.walls['S'] = new Wall( 32 , 48 , this.gfx('wallNS_32x48.png') , this.gfx('wireWallNS_32x48.png') , 0 , 16 ); 
+	this.catalogue.walls['Du'] = new Wall( 32 , 48 , this.gfx('wallDoorUpper_32x48.png') , this.gfx('wireWallNS_32x48.png') , 0 , 16 ); 
+	this.catalogue.walls['Dl'] = new Wall( 32 , 48 , this.gfx('wallDoorUnder_32x48.png') , this.gfx('wireWallNS_32x48.png') , 0 , 16 ); 
+
 };
 
 DemoWallAndTileManager.prototype = new WallAndTileManager();
 
 override(DemoWallAndTileManager,
-{
-	defaultWall : null,
-	defaultTile : null,
-	
+{	
+	catalogue : null,
 	/** The absolute path to the gfx folder. **/
 	imageReader: null,
 	
@@ -47,30 +57,8 @@ override(DemoWallAndTileManager,
 	 *
 	 * @returns {Wall} The created wall object or null if no corresponding object could be found.
 	 */
-	getWall : function( wallType ) {
-		
-		var wall = null;
-		
-		if( 'N' == wallType ){
-			wall = new Wall( 32 , 48 , this.gfx('wallNS_32x48.png') , this.gfx('wireWallNS_32x48.png') , 32 );
-		}
-		if( 'E' == wallType ){
-			wall = new Wall( 32 , 48 , this.gfx('wallWE_32x48.png') , this.gfx('wireWallWE_32x48.png') , 32 , 16);
-		}
-		if( 'W' == wallType){
-			wall = new Wall( 32 , 48 , this.gfx('wallWE_32x48.png') , this.gfx('wireWallWE_32x48.png') );
-		}
-		if( 'S' == wallType ){
-			wall = new Wall( 32 , 48 , this.gfx('wallNS_32x48.png') , this.gfx('wireWallNS_32x48.png') , 0 , 16);
-		}
-		if( 'Du' == wallType ){
-			wall = new Wall( 32 , 48 , this.gfx('wallDoorUpper_32x48.png') , this.gfx('wireWallNS_32x48.png') , 0 , 16);
-		}
-		if( 'Dl' == wallType ){
-			wall = new Wall( 32 , 48 , this.gfx('wallDoorUnder_32x48.png') , this.gfx('wireWallNS_32x48.png') , 0 , 16);
-		}
-		
-		return wall;
+	getWall : function( wallType ) {	
+		return this.catalogue.walls[ wallType ];
 	},
 	
 	getNDefaultWall : function() {
@@ -90,7 +78,7 @@ override(DemoWallAndTileManager,
 	},
 	
 	getDefaultTile : function() {
-		return this.defaultTile;
+		return this.getTile('B');
 	},	
 	
 	/**
@@ -101,15 +89,8 @@ override(DemoWallAndTileManager,
 	 *
 	 * @returns {Tile} The created tile object or null if no corresponding object could be found.
 	 */
-	getTile : function( tileType ) {
-		
-		var tile = null;
-		
-		if( 'B' == tileType ){
-			tile = new Tile( 64 , 32 , 'khaki' , 'black' , 0 , 32 );
-		}
-		
-		return tile;
+	getTile : function( tileType ) {		
+		return this.catalogue.tiles[ tileType ];
 	},
 	
 	/**
