@@ -47,7 +47,7 @@ MapPainter.prototype =
 		for ( var n = 0;  n <= ( map.maxX + map.maxY + map.maxZ - map.minX - map.minY - map.minZ ) ; n++ ) {			
 			for ( var z = 0 ; z <= Math.min( n , map.maxZ - map.minZ ) ; z++ ) {
 				for ( var y = 0 ; y <= Math.min( (n-z) , ( map.maxY - map.minY ) ) ; y++ ) {
-					if(map.get( ( n - y - z - map.minX ) , ( y - map.minY ) , ( z - map.minY) ) ) {
+					if(map.get( ( n - y - z - map.minX ) , ( y - map.minY ) , ( z - map.minZ) ) ) {
 						this.drawMapField( context , ( xPos - (2*y-n+z) * this.wallAndTileManager.getTileWidth() / 2 ) , ( yPos + ( n*(this.wallAndTileManager.getTileHeight() / 2 ) - z*(this.wallAndTileManager.getWallHeight() + 1 ) )) , map.get( n-y-z , y , z ) );
 					}
 				}

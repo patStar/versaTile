@@ -36,7 +36,6 @@ MapBuilder.prototype =
 		for( var z = 0 ; z < mapData.length ; z++ ) {
 			for( var y = 0 ; y < mapData[z].length ; y++ ) {
 				for( var x = 0 ; x < mapData[z][y].length ; x++ ) {
-					
 					var field = this.mapDataTransformer.transformToMapField( mapData[z][y][x] , x , y , z);
 					map.put(field);
 				}

@@ -166,7 +166,7 @@ override(MapInteractionManager,
 	 */
 	adjustLevel : function ( delta , reselect ) {
 		
-		if ( this.heightLevel + delta < this.map.maxZ && this.heightLevel + delta >= this.map.minZ ) {
+		if ( this.heightLevel + delta <= this.map.maxZ && this.heightLevel + delta >= this.map.minZ ) {
 			
 			this.heightLevel += delta;
 			

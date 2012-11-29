@@ -105,12 +105,12 @@ Map3D.prototype =
 		this.maxX = Math.max(this.maxX,field.x);
 		
 		// update minY and maxY if necessary.
-		this.minY = Math.min(this.minY,field.x);
-		this.maxY = Math.max(this.maxY,field.x);
+		this.minY = Math.min(this.minY,field.y);
+		this.maxY = Math.max(this.maxY,field.y);
 		
 		// update minZ and maxZ if necessary.
-		this.minZ = Math.min(this.minZ,field.x);
-		this.maxZ = Math.max(this.maxZ,field.x);
+		this.minZ = Math.min(this.minZ,field.z);
+		this.maxZ = Math.max(this.maxZ,field.z);
 		
 	},
 	
